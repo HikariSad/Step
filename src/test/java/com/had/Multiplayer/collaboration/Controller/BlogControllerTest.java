@@ -47,7 +47,6 @@ class BlogControllerTest {
                 .andExpect(result -> result.getResponse().getContentAsString(StandardCharsets.UTF_8).contains("获取成功"));
     }
 
-
     @Test
     public void getBlogTest() throws Exception {
         mvc.perform(get("/blog?page=1&pageSize=1&atIndex=true")).andExpect(status().isOk())

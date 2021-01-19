@@ -113,9 +113,6 @@ class AuthControllerTest {
         mvc.perform(get("/auth")).andExpect(result ->
                 assertTrue(result.getResponse().getContentAsString().contains("ok"))
         );
-        //匿名用户anonymousUser
-//        Mockito.when(getContext().getAuthentication()).
-//                thenReturn(new AnonymousAuthenticationToken("123123","anonymousUser",Collections.emptyList()));
 
         mvc.perform(get("/auth")).andExpect(status().isOk()).andExpect(result -> {
             System.out.println("123123");
