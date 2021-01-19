@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.had.Multiplayer.collaboration.Mapper.UserMapper">
+    <select id="getUserList" parameterType="java.lang.Integer" resultType="com.had.Multiplayer.collaboration.bean.User">
+        select * from User
+    </select>
+
+    <insert id="saveUser" parameterType="com.had.Multiplayer.collaboration.bean.User">
+        <selectKey keyProperty="id" resultType="int">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into User(user_name,avatar,create_at,update_at,password)
+        values (#{userName},#{avatar},#{createAt},#{updateAt},#{password})
+    </insert>
+
+    <select id="isHaveRepeatUsername" parameterType="java.lang.String" resultType="java.lang.Boolean">
+        select count(id) from User where user_name = #{username};
+    </select>
+
+    <select id="isRegisterd" parameterType="java.lang.String" resultType="java.lang.Boolean">
+        select count(id) from User where user_name = #{userName}
+    </select>
+
+    <select id="getUserByUserName" parameterType="java.lang.String" resultType="com.had.Multiplayer.collaboration.bean.User">
+        select
+                id id,
+               user_name userName,
+               avatar avatar,
+                create_at createAt,
+                update_at updateAt,
+               password password
+        from User
+        where user_name = #{userName}
+    </select>
+
+    <select id="getUserById" parameterType="java.lang.Integer" resultType="com.had.Multiplayer.collaboration.bean.User">
+        select * from User
+    <where>
+        <if test="id != null">
+            id = #{id}
+        </if>
+    </where>
+    </select>
+</mapper>

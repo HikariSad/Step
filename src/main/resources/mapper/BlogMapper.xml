@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.had.Multiplayer.collaboration.Mapper.BlogMapper">
+    <insert id="saveBlog" parameterType="com.had.Multiplayer.collaboration.bean.Blog">
+        <selectKey keyProperty="id" resultType="int">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into Blog (title,content,description,user_id,create_at,update_at)
+            values (#{title},#{content},#{description},#{userId},#{createAt},#{updateAt})
+    </insert>
+
+    <select id="getBlog" parameterType="com.had.Multiplayer.collaboration.bean.Blog" resultType="com.had.Multiplayer.collaboration.bean.Blog">
+        select id id,
+               title title,
+               description description,
+               user_id userId
+               from Blog where in_index = #{inIndex}
+        <if test="userId !=null">
+            and user_id = #{userId}
+        </if>
+    </select>
+
+    <select id="getBlogById" parameterType="java.lang.Integer" resultType="com.had.Multiplayer.collaboration.bean.Blog">
+        select * from Blog where id = #{id}
+    </select>
+
+    <update id="updateBlogById" parameterType="com.had.Multiplayer.collaboration.bean.Blog">
+        update Blog
+            <set>
+                <if test="title !=null and title !=''">
+                    title = #{title},
+                </if>
+                <if test="content !=null and content !=''">
+                    content = #{content},
+                </if>
+                <if test="description !=null and description !=''">
+                    description = #{description},
+                </if>
+                <if test="inIndex !=null">
+                    in_index = #{inIndex},
+                </if>
+            </set>
+            where id = #{id}
+    </update>
+
+    <delete id="deleteBlogById" parameterType="java.lang.Integer">
+        delete from Blog where id = #{id}
+    </delete>
+</mapper>
