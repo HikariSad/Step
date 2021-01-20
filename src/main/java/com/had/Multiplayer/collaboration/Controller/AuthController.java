@@ -125,15 +125,4 @@ public class AuthController {
         }
         return Result.successResult("ok", "登陆成功", userService.getUserByUserName(username));
     }
-
-    @GetMapping("/b")
-    public String getB() {
-        return "b";
-    }
-
-    @GetMapping("/success")
-    public String success() {
-        return "success";
-    }
-
 }
